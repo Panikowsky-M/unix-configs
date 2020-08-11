@@ -1,0 +1,16 @@
+[Default Applications]
+text/html=yandex-browser-beta.desktop
+x-scheme-handler/http=qutebrowser.desktop
+x-scheme-handler/https=qutebrowser.desktop
+x-scheme-handler/about=qutebrowser.desktop
+x-scheme-handler/unknown=qutebrowser.desktop
+x-scheme-handler/tg=telegramdesktop.desktop
+image/jpeg=vimiv.desktop
+image/png=vimiv.desktop
+image/bmp=vimiv.desktop
+image/jpg=vimiv.desktop
+image/tiff=vimiv.desktop
+image/gif=vimiv.desktop
+application/pdf=zathura.desktop
+application/x-pdf=zathura.desktop
+application/djvu=zathura.desktop
