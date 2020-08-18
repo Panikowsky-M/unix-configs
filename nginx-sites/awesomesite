@@ -1,0 +1,21 @@
+    server {
+	listen 80;
+	listen [::]:80;
+
+	server_name www.awesomesite.com;
+
+	root /var/www/awesomesite;
+	index 0page.html;
+
+	location / {
+		add_header 'Access-Control-Allow-Origin' 'http://www.victim.com';
+		try_files $uri $uri/ =404;
+	      }
+	 location /php {
+	 include snippets/fastcgi-php.conf;
+	 fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+	    }
+}
+
+
+

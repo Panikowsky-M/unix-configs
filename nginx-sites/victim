@@ -1,0 +1,23 @@
+    server {
+	listen 80;
+	listen [::]:80;
+
+	server_name www.victim.com;
+
+	root /var/www/victim;
+	index 0page.html;
+
+	location / {
+
+		add_header 'Access-Control-Allow-Origin' 'http://www.awesomesite.com; http://sub.victim.com';
+		#add_header 'Content-Security-Policy' 'self';
+		add_header 'Set-Cookie' "sessionid=0a7016d5f7346a6f14b273a66e0770fb7d6608769f233156570e878a1397a175";
+		try_files $uri $uri/ =404;
+	      } 
+
+	 location /php {
+	 include snippets/fastcgi-php.conf;
+	 fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+	  }
+	       
+}
