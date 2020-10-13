@@ -1,0 +1,54 @@
+#decorations: full
+background_opacity: 0.95
+scrolling:
+  # Maximum number of lines in the scrollback buffer.
+  # Specifying '0' will disable scrolling.
+  history: 500
+
+  # Number of lines the viewport will move for every line scrolled when
+  # scrollback is enabled (history > 0).
+  #multiplier: 3
+
+# Font configuration
+#font:
+#  normal:
+#    family: Iosevka Fixed SS02
+#    style: Extended
+#    size: 10
+font:
+  normal:
+   family: PT Mono
+   style: Regular
+   size: 10
+  bold:
+   family: PT Mono
+   style: Bold
+   size: 10
+
+# Colors (Dracula)
+colors:
+   # Default colors
+  primary:
+    background: '#282a36'
+  #foreground: '#f8f8f2'
+  # Normal colors
+  normal:
+    black:   '#000000'
+    red:     '#ff5555'
+    green:   '#93dbc1'
+    yellow:  '#f1fa8c'
+    blue:    '#caa9fa'
+    magenta: '#ff79c6'
+    cyan:    '#8be9fd'
+    white:   '#bfbfbf'
+  
+  # Bright colors
+  bright:
+    black:   '#575b70'
+    red:     '#ff6e67'
+    green:   '#c2f2e0'
+    yellow:  '#f4f99d'
+    blue:    '#caa9fa'
+    magenta: '#ff92d0'
+    cyan:    '#9aedfe'
+    white:   '#e6e6e6'
