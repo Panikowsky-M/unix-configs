@@ -1,0 +1,44 @@
+---
+- hosts: ub
+  become: yes
+  
+  tasks:
+  - name: Установка pip
+    apt: name=python3-pip
+  - name: Установка docker-py
+    pip: name=docker-py
+
+  - name: Контейнер monsterpic
+    docker_container:
+      name: monsterpic 
+      image: amouat/dnmonster:1.0
+      pull: on
+      state: started
+      restart_policy: always
+
+  - name: Контейнер genavatar
+    docker_container:
+      name: generator
+      image: cr.yandex/crpk1ln2o51l4tvcp5gh/genavatar:testing020521_2335
+      pull: on
+      state: started
+      links:
+        - "monsterpic:monsterpic"
+      env:
+        ENV: DEV
+      restart_policy: always
+
+  - name: Контейнер proxy
+    docker_container:
+      name: proxy
+      image: cr.yandex/crpk1ln2o51l4tvcp5gh/avaproxy:1.0 
+      pull: on
+      state: started
+      links:
+        - "generator:generator"
+      ports:
+        - "80:80"
+      env:
+        VM_ADDR: 10.0.4.22
+        CONTAINER: http://generator:5000
+      restart_policy: always

@@ -1,0 +1,41 @@
+#
+# ~/.bash_profile
+#
+KEYLOC=`realpath "$HOME/.ssh"`
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+echo -e "\033[33m [ i ] :: \033[37mНиже представлен список доступных ssh ключей:\n"
+ls $KEYLOC
+echo -e "\r\n"
+echo -e "\033[35m [ ? ] :: \033[37mДобавить новые ключи в агент ? [y/n]\r\n"
+read _in
+case $_in in
+	y)
+	for _pid in $(pgrep ssh-agent)
+	do
+		if [[ -n $(pgrep ssh-agent) ]];
+		then
+	echo -e "\033[31m [ E ] :: \033[37mНайдены лишние агенты!\r\n"
+	echo -e "\033[33m [ N ] :: \033[37mАгент №$(pgrep ssh-agent) - снят!\r\n"
+	kill -9 $(pgrep ssh-agent)
+		fi
+	done
+	eval $(ssh-agent) &>/dev/null
+	echo -e "\033[32m [ S ] :: \033[37mАгент №$(pgrep ssh-agent) запущен, добавьте ключ!\r\n"
+	read key
+	ssh-add "$KEYLOC/$key"
+	if [[ -z "$(pgrep ssh-agent)" ]];
+	then
+	    echo -e "\033[33m [ N ] :: \033[37mНе найдено запущенных агентов!\r\n"
+	    echo -e "\033[33m [ N ] :: \033[37mЗапускаю агент ...\r\n"
+	    eval $(ssh-agent) &>/dev/null
+	  echo -e "\033[32m [ S ] :: \033[37mАгент запущен $(pgrep ssh-agent), добавьте ключ!\r\n"
+	    read key
+	    ssh-add "$KEYLOC/$key"
+	fi
+	;;
+	n)
+		echo -e "\033[33m [ N ] :: \033[37mВ агенте нет новых ключей!\r\n"
+	;;
+esac
